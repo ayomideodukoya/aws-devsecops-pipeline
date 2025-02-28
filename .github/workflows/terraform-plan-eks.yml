@@ -1,17 +1,17 @@
-name: "Terraform Apply"
+name: "Terraform Plan"
 
 on:
   workflow_call:
 
 env:
   AWS_REGION: "us-east-1" # Specify your AWS region
-  TF_VAR_ecr_repository_name: "devsecops-ecr-repo"
-  TF_VAR_eks_cluster_name: "devsecops=ecr-cluster"
+  TF_VAR_ecr_repository_name: "my-api-repo"
+  TF_VAR_eks_cluster_name: "my-eks-cluster"
   TF_VAR_vpc_cidr: "10.0.0.0/16"
 
 jobs:
   terraform:
-    name: "Terraform Apply"
+    name: "Terraform Plan"
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -32,7 +32,7 @@ jobs:
           cd terraform/pipelines
           terraform init
 
-      - name: Terraform Apply
+      - name: Terraform Plan
         run: |
           cd terraform/pipelines
-          terraform apply -auto-approve
+          terraform plan
